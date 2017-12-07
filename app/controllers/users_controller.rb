@@ -42,12 +42,13 @@ class UsersController < ApplicationController
   end
   
   def favorites
+    @user = User.find(params[:id])
     @micropost = Micropost.find(params[:id])
-    @favorites = @micropost.favorites.page(params[:page])
-    counts(@micropost)
+    @favorites = @user.favorites_microposts.page(params[:page])
+    counts(@user)
   end
 
-private
+  private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_digest)
