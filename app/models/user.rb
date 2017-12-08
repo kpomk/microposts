@@ -30,8 +30,10 @@ class User < ApplicationRecord
   end
   
   def favorite(other_micropost)
-    unless self.micropost == other_micropost
-    self.favorites.find_or_create_by(micropost_id: other_micropost.id)
+    # 自分が投稿したmicropostデータ集のうちに、
+    # other_micropost変数(の中身にある)micropostインスタンスを含むか
+    unless self.microposts.include?(other_micropost)
+      self.favorites.find_or_create_by(micropost_id: other_micropost.id)
     end
   end
   
